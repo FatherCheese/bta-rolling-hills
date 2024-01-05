@@ -4,6 +4,7 @@
   "package": "cookie.rollinghills.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+    "WorldRendererMixin"
   ],
   "client": [
   ],
