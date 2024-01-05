@@ -1,28 +1,33 @@
 {
   "schemaVersion": 1,
-  "id": "examplemod",
+  "id": "rollinghills",
   "version": "${version}",
 
-  "name": "Example Mod",
-  "description": "This mod aims to help new BTA modders.",
+  "name": "Rolling Hills",
+  "description": "A remake of the 'Better Grass' mod for BTA.",
   "authors": [
-    "Turnip Labs"
+    "Cookie"
   ],
+	"contributors": [
+		"UselessBullets (grass model and code)"
+	],
   "contact": {
-    "homepage": "",
+    "homepage": "https://github.com/FatherCheese/bta-rolling-hills",
+		"issues": "https://github.com/FatherCheese/bta-rolling-hills/issues",
     "sources": ""
   },
 
+	"icon": "icon.png",
   "license": "CC0-1.0",
 
   "environment": "*",
   "entrypoints": {
     "main": [
-        "turniplabs.examplemod.ExampleMod"
+			"cookie.rollinghills.RollingHills"
     ]
   },
   "mixins": [
-      "examplemod.mixins.json"
+		"rollinghills.mixins.json"
   ],
 
   "depends": {
