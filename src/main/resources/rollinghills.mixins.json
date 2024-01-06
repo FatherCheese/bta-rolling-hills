@@ -4,9 +4,11 @@
   "package": "cookie.rollinghills.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+    "RenderGlobalMixin",
     "WorldRendererMixin"
   ],
   "client": [
+    "MinecraftMixin"
   ],
   "injectors": {
     "defaultRequire": 1
