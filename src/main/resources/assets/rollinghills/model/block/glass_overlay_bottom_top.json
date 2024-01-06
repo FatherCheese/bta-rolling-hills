@@ -1,0 +1,17 @@
+{
+	"credit": "Made with Blockbench",
+	"textures": {
+		"1": "rollinghills:block/glass_overlay",
+		"particle": "block/glass"
+	},
+	"elements": [
+		{
+			"from": [0, 0, 15],
+			"to": [16, 0, 16],
+			"rotation": {"angle": 0, "axis": "x", "origin": [8, 8, 8]},
+			"faces": {
+				"down": {"uv": [0, 0, 16, 1], "texture": "#1", "cullface": "down"}
+			}
+		}
+	]
+}

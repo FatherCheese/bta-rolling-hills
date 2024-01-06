@@ -1,0 +1,201 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "rollinghills:block/glass_base"
+      }
+    },
+    {
+      "apply": {
+        "model": "rollinghills:block/glass_overlay_n_top"
+      },
+      "when": {
+        "up": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "rollinghills:block/glass_overlay_n_bottom"
+      },
+      "when": {
+        "down": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "rollinghills:block/glass_overlay_n_left"
+      },
+      "when": {
+        "east": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "rollinghills:block/glass_overlay_n_right"
+      },
+      "when": {
+        "west": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "rollinghills:block/glass_overlay_e_top"
+      },
+      "when": {
+        "up": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "rollinghills:block/glass_overlay_e_bottom"
+      },
+      "when": {
+        "down": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "rollinghills:block/glass_overlay_e_left"
+      },
+      "when": {
+        "south": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "rollinghills:block/glass_overlay_e_right"
+      },
+      "when": {
+        "north": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "rollinghills:block/glass_overlay_w_top"
+      },
+      "when": {
+        "up": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "rollinghills:block/glass_overlay_w_bottom"
+      },
+      "when": {
+        "down": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "rollinghills:block/glass_overlay_w_left"
+      },
+      "when": {
+        "north": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "rollinghills:block/glass_overlay_w_right"
+      },
+      "when": {
+        "south": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "rollinghills:block/glass_overlay_s_top"
+      },
+      "when": {
+        "up": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "rollinghills:block/glass_overlay_s_bottom"
+      },
+      "when": {
+        "down": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "rollinghills:block/glass_overlay_s_left"
+      },
+      "when": {
+        "west": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "rollinghills:block/glass_overlay_s_right"
+      },
+      "when": {
+        "east": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "rollinghills:block/glass_overlay_top_top"
+      },
+      "when": {
+        "north": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "rollinghills:block/glass_overlay_top_bottom"
+      },
+      "when": {
+        "south": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "rollinghills:block/glass_overlay_top_left"
+      },
+      "when": {
+        "east": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "rollinghills:block/glass_overlay_top_right"
+      },
+      "when": {
+        "west": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "rollinghills:block/glass_overlay_bottom_top"
+      },
+      "when": {
+        "north": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "rollinghills:block/glass_overlay_bottom_bottom"
+      },
+      "when": {
+        "south": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "rollinghills:block/glass_overlay_bottom_left"
+      },
+      "when": {
+        "east": "false"
+      }
+    },
+    {
+      "apply": {
+        "model": "rollinghills:block/glass_overlay_bottom_right"
+      },
+      "when": {
+        "west": "false"
+      }
+    }
+  ]
+}

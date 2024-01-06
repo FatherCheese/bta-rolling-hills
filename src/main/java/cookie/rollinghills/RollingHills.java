@@ -24,6 +24,13 @@ public class RollingHills implements ModInitializer, GameStartEntrypoint, Recipe
 				new GrassMetaState(), true, 0.25f)
 		);
 
+		BlockModelDispatcher.getInstance().addDispatch(
+			Block.glass,
+			new BlockModelDragonFly(ModelHelper.getOrCreateBlockModel(MOD_ID, "block/glass_item.json"),
+				ModelHelper.getOrCreateBlockState(MOD_ID, "glass.json"),
+				new GlassMetaState(), true, 0.25f)
+		);
+
 		LOGGER.info("Rolling Hills has been initialized.");
     }
 
