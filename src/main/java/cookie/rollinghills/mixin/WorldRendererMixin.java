@@ -10,6 +10,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import static cookie.rollinghills.RollingHillsConfig.cfg;
+
 @Mixin(value = WorldRenderer.class, remap = false)
 public abstract class WorldRendererMixin {
 
@@ -19,7 +21,9 @@ public abstract class WorldRendererMixin {
 	@Inject(method = "renderWorld", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/RenderGlobal;renderClouds(F)V", shift = At.Shift.AFTER))
 	private void rollingHills_renderSecondClouds(float partialTick, long updateRenderersUntil, CallbackInfo ci) {
 		RenderGlobal renderGlobal = mc.renderGlobal;
-		if (renderGlobal instanceof TwoClouds)
-			((TwoClouds) renderGlobal).bta_rolling_hills$renderSecondClouds(partialTick);
+		if (cfg.getBoolean("Rolling Hills.SecondCloudLayer")) {
+			if (renderGlobal instanceof TwoClouds)
+				((TwoClouds) renderGlobal).bta_rolling_hills$renderSecondClouds(partialTick);
+		}
 	}
 }

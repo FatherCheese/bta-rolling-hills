@@ -1,4 +1,4 @@
-package cookie.rollinghills;
+package cookie.rollinghills.metastates;
 
 import net.minecraft.core.block.Block;
 import net.minecraft.core.block.material.Material;
