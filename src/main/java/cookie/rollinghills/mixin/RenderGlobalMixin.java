@@ -76,7 +76,7 @@ public abstract class RenderGlobalMixin implements TwoClouds {
 					float f10 = (float)(posX * (double)f6);
 					float f11 = (float)(posZ * (double)f6);
 					tessellator.startDrawingQuads();
-					tessellator.setColorRGBA_F(r, g, b, 0.8F);
+					tessellator.setColorRGBA_F(r, g, b, 0.6F);
 
 					for(int cloudX = -cloudRadius * i; cloudX < cloudRadius * i; cloudX += cloudRadius) {
 						for(int cloudZ = -cloudRadius * i; cloudZ < cloudRadius * i; cloudZ += cloudRadius) {
@@ -176,7 +176,7 @@ public abstract class RenderGlobalMixin implements TwoClouds {
 					float cloudX = f17 - f14;
 					float cloudZ = f18 - f15;
 					if (dy > -cloudThickness - 1.0F) {
-						tessellator.setColorRGBA_F(red * 0.7F, green * 0.7F, blue * 0.7F, 0.8F);
+						tessellator.setColorRGBA_F(red * 0.7F, green * 0.7F, blue * 0.7F, 0.6F);
 						tessellator.setNormal(0.0F, -1.0F, 0.0F);
 						tessellator.addVertexWithUV(
 							cloudX + 0.0F,
@@ -209,7 +209,7 @@ public abstract class RenderGlobalMixin implements TwoClouds {
 					}
 
 					if (dy <= cloudThickness + 1.0F) {
-						tessellator.setColorRGBA_F(red, green, blue, 0.8F);
+						tessellator.setColorRGBA_F(red, green, blue, 0.6F);
 						tessellator.setNormal(0.0F, 1.0F, 0.0F);
 						tessellator.addVertexWithUV(
 							cloudX + 0.0F,
@@ -241,7 +241,7 @@ public abstract class RenderGlobalMixin implements TwoClouds {
 						);
 					}
 
-					tessellator.setColorRGBA_F(red * 0.9F, green * 0.9F, blue * 0.9F, 0.8F);
+					tessellator.setColorRGBA_F(red * 0.9F, green * 0.9F, blue * 0.9F, 0.6F);
 					if (ix > -1) {
 						tessellator.setNormal(-1.0F, 0.0F, 0.0F);
 
@@ -312,7 +312,7 @@ public abstract class RenderGlobalMixin implements TwoClouds {
 						}
 					}
 
-					tessellator.setColorRGBA_F(red * 0.8F, green * 0.8F, blue * 0.8F, 0.8F);
+					tessellator.setColorRGBA_F(red * 0.8F, green * 0.8F, blue * 0.8F, 0.6F);
 					if (iz > -1) {
 						tessellator.setNormal(0.0F, 0.0F, -1.0F);
 
@@ -388,7 +388,7 @@ public abstract class RenderGlobalMixin implements TwoClouds {
 			tessellator.draw();
 		}
 
-		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+		GL11.glColor4f(1.0F, 1.0F, 1.0F, 0.6F);
 		GL11.glDisable(3042);
 		GL11.glEnable(2884);
 	}
