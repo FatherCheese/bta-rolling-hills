@@ -1,9 +1,8 @@
 package cookie.rollinghills;
 
-import cookie.rollinghills.client.metastates.GlassMetaState;
+import cookie.rollinghills.client.metastates.GrassMetaState;
 import net.minecraft.client.render.block.model.BlockModelDispatcher;
 import net.minecraft.core.block.Block;
-import org.useless.dragonfly.debug.block.metastates.GrassMetaState;
 import org.useless.dragonfly.helper.ModelHelper;
 import org.useless.dragonfly.model.block.BlockModelDragonFly;
 

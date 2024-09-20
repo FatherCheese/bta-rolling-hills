@@ -9,8 +9,8 @@
 		"Cookie Cakes"
 	],
 	"contact": {
-		"homepage": "",
-		"sources": ""
+		"sources": "https://github.com/FatherCheese/bta-rolling-hills",
+		"issues": "https://github.com/FatherCheese/bta-rolling-hills/issues"
 	},
 
 	"icon": "icon.png",
