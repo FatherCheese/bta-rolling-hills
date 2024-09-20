@@ -1,4 +1,4 @@
-package cookie.rollinghills;
+package cookie.rollinghills.client;
 
 import turniplabs.halplibe.util.TomlConfigHandler;
 import turniplabs.halplibe.util.toml.Toml;
@@ -9,11 +9,10 @@ public class RollingHillsConfig {
 	private static final Toml properties = new Toml("Rolling Hill's TOML Config");
 	public static TomlConfigHandler cfg;
 
-	public RollingHillsConfig() {
+	static {
 		properties.addCategory("Rolling Hills")
 			.addEntry("BetterGrass", true)
-			.addEntry("SecondCloudLayer", true)
-			.addEntry("ConnectedGlass", true);
+			.addEntry("SecondCloudLayer", true);
 
 		cfg = new TomlConfigHandler(MOD_ID, properties);
 	}

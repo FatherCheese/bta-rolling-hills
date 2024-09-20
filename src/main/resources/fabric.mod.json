@@ -1,38 +1,41 @@
 {
-  "schemaVersion": 1,
-  "id": "rollinghills",
-  "version": "${version}",
+	"schemaVersion": 1,
+	"id": "rollinghills",
+	"version": "${version}",
 
-  "name": "Rolling Hills",
-  "description": "A remake of the 'Better Grass' mod for BTA.",
-  "authors": [
-    "Cookie"
-  ],
-	"contributors": [
-		"UselessBullets (grass model and code)"
+	"name": "Rolling Hills",
+	"description": "An implementation of Better Grass for BTA.",
+	"authors": [
+		"Cookie Cakes"
 	],
-  "contact": {
-    "homepage": "https://github.com/FatherCheese/bta-rolling-hills",
-		"issues": "https://github.com/FatherCheese/bta-rolling-hills/issues",
-    "sources": ""
-  },
+	"contact": {
+		"homepage": "",
+		"sources": ""
+	},
 
 	"icon": "icon.png",
-  "license": "CC0-1.0",
+	"license": "CC0-1.0",
 
-  "environment": "*",
-  "entrypoints": {
-    "main": [
+	"environment": "*",
+	"entrypoints": {
+		"main": [
 			"cookie.rollinghills.RollingHills"
-    ]
-  },
-  "mixins": [
+		],
+		"beforeGameStart": [
+			"cookie.rollinghills.RollingHills"
+		],
+		"afterGameStart": [
+			"cookie.rollinghills.RollingHills"
+		]
+	},
+	"mixins": [
 		"rollinghills.mixins.json"
-  ],
+	],
 
-  "depends": {
-    "fabricloader": ">=0.13.3"
-  },
-  "suggests": {
-  }
+	"depends": {
+		"minecraft": "^7.2-beta",
+		"fabricloader": ">=0.15.5"
+	},
+	"suggests": {
+	}
 }

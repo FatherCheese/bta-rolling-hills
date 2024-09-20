@@ -1,11 +1,10 @@
-package cookie.rollinghills.mixin;
+package cookie.rollinghills.extra.mixin;
 
-import cookie.rollinghills.TwoClouds;
+import cookie.rollinghills.extra.TwoClouds;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiPhotoMode;
 import net.minecraft.client.render.RenderEngine;
 import net.minecraft.client.render.RenderGlobal;
-import net.minecraft.client.render.Tessellator;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.util.phys.Vec3d;
 import net.minecraft.core.world.Dimension;
@@ -56,10 +55,10 @@ public abstract class RenderGlobalMixin implements TwoClouds {
 					float cameraY = (float) mc.activeCamera.getY(partialTick);
 					byte cloudRadius = 32;
 					int i = 256 / cloudRadius;
-					Tessellator tessellator = Tessellator.instance;
-					GL11.glBindTexture(3553, renderEngine.getTexture("/assets/rollinghills/environment/clouds2.png"));					GL11.glEnable(3042);
+					net.minecraft.client.render.tessellator.Tessellator tessellator = net.minecraft.client.render.tessellator.Tessellator.instance;
+					GL11.glBindTexture(3553, renderEngine.getTexture("/assets/rollinghills/textures/environment/clouds2.png"));					GL11.glEnable(3042);
 					GL11.glBlendFunc(770, 771);
-					Vec3d dimensionColor = worldObj.getDimensionColor(partialTick);
+					Vec3d dimensionColor = worldObj.getDimensionColor(mc.activeCamera, partialTick);
 					float r = (float)dimensionColor.xCoord;
 					float g = (float)dimensionColor.yCoord;
 					float b = (float)dimensionColor.zCoord;
@@ -124,7 +123,7 @@ public abstract class RenderGlobalMixin implements TwoClouds {
 	public void bta_rolling_hills$renderSecondCloudsFancy(float partialTick) {
 		GL11.glDisable(2884);
 		float cameraY = (float) mc.activeCamera.getY(partialTick);
-		Tessellator tessellator = Tessellator.instance;
+		net.minecraft.client.render.tessellator.Tessellator tessellator = net.minecraft.client.render.tessellator.Tessellator.instance;
 		float cloudWidth = 12.0F;
 		float cloudThickness = 4.0F;
 		double dx = (
@@ -142,10 +141,10 @@ public abstract class RenderGlobalMixin implements TwoClouds {
 		int j = MathHelper.floor_double(dz / 2048.0);
 		dx -= i * 2048;
 		dz -= j * 2048;
-		GL11.glBindTexture(3553, renderEngine.getTexture("/assets/rollinghills/environment/clouds2.png"));
+		GL11.glBindTexture(3553, renderEngine.getTexture("/assets/rollinghills/textures/environment/clouds2.png"));
 		GL11.glEnable(3042);
 		GL11.glBlendFunc(770, 771);
-		Vec3d color = worldObj.getDimensionColor(partialTick);
+		Vec3d color = worldObj.getDimensionColor(mc.activeCamera, partialTick);
 		float red = (float)color.xCoord;
 		float green = (float)color.yCoord;
 		float blue = (float)color.zCoord;
@@ -395,32 +394,32 @@ public abstract class RenderGlobalMixin implements TwoClouds {
 
 	@Override
 	public void bta_rolling_hills$updateSecondClouds() {
-		float windDirection = this.worldObj.worldType.getWindManager().getWindDirection(this.worldObj, 0.0F, 500.0F, 0.0F);
-		float windIntensity = this.worldObj.worldType.getWindManager().getWindIntensity(this.worldObj, 0.0F, 500.0F, 0.0F);
+		float windDirection = worldObj.worldType.getWindManager().getWindDirection(worldObj, 0.0F, 500.0F, 0.0F);
+		float windIntensity = worldObj.worldType.getWindManager().getWindIntensity(worldObj, 0.0F, 500.0F, 0.0F);
 		float dx = -((float)(Math.cos((double)windDirection * Math.PI * 2.0) * (double)windIntensity));
 		float dz = -((float)(Math.sin((double)windDirection * Math.PI * 2.0) * (double)windIntensity));
 		cloudVelocity2X += dx;
 		cloudVelocity2Z += dz;
 		float maxVel = 0.75F;
-		if (this.cloudVelocity2X > maxVel) {
-			this.cloudVelocity2X = maxVel;
+		if (cloudVelocity2X > maxVel) {
+			cloudVelocity2X = maxVel;
 		}
 
-		if (this.cloudVelocity2X < -maxVel) {
-			this.cloudVelocity2X = -maxVel;
+		if (cloudVelocity2X < -maxVel) {
+			cloudVelocity2X = -maxVel;
 		}
 
-		if (this.cloudVelocity2Z > maxVel) {
-			this.cloudVelocity2Z = maxVel;
+		if (cloudVelocity2Z > maxVel) {
+			cloudVelocity2Z = maxVel;
 		}
 
-		if (this.cloudVelocity2Z < -maxVel) {
-			this.cloudVelocity2Z = -maxVel;
+		if (cloudVelocity2Z < -maxVel) {
+			cloudVelocity2Z = -maxVel;
 		}
 
-		this.lastCloudOffset2X = this.cloudOffset2X;
-		this.lastCloudOffset2Z = this.cloudOffset2Z;
-		this.cloudOffset2X += this.cloudVelocity2X;
-		this.cloudOffset2Z += this.cloudVelocity2Z;
+		lastCloudOffset2X = cloudOffset2X;
+		lastCloudOffset2Z = cloudOffset2Z;
+		cloudOffset2X += cloudVelocity2X;
+		cloudOffset2Z += cloudVelocity2Z;
 	}
 }

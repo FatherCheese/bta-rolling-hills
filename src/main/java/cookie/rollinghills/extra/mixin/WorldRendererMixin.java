@@ -1,6 +1,6 @@
-package cookie.rollinghills.mixin;
+package cookie.rollinghills.extra.mixin;
 
-import cookie.rollinghills.TwoClouds;
+import cookie.rollinghills.extra.TwoClouds;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.render.RenderGlobal;
 import net.minecraft.client.render.WorldRenderer;
@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import static cookie.rollinghills.RollingHillsConfig.cfg;
+import static cookie.rollinghills.client.RollingHillsConfig.cfg;
 
 @Mixin(value = WorldRenderer.class, remap = false)
 public abstract class WorldRendererMixin {

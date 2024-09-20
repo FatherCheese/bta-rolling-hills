@@ -1,6 +1,6 @@
-package cookie.rollinghills.mixin;
+package cookie.rollinghills.extra.mixin;
 
-import cookie.rollinghills.TwoClouds;
+import cookie.rollinghills.extra.TwoClouds;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.render.RenderGlobal;
 import org.spongepowered.asm.mixin.Mixin;
