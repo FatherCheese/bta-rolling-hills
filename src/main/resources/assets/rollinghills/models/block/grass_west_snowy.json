@@ -1,8 +1,8 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"0": "minecraft:block/snow",
-		"particle": "minecraft:block/snow"
+		"0": "minecraft:block/block_snow",
+		"particle": "minecraft:block/block_snow"
 	},
 	"elements": [
 		{
