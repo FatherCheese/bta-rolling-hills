@@ -1,6 +1,8 @@
 package cookie.rollinghills.extra.mixin;
 
 import cookie.rollinghills.extra.TwoClouds;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.render.RenderGlobal;
 import net.minecraft.client.render.WorldRenderer;
@@ -10,13 +12,14 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import static cookie.rollinghills.client.RollingHillsConfig.cfg;
+import static cookie.rollinghills.extra.RollingHillsConfig.cfg;
 
+@Environment(EnvType.CLIENT)
 @Mixin(value = WorldRenderer.class, remap = false)
 public abstract class WorldRendererMixin {
 
 	@Shadow
-	private Minecraft mc;
+	public Minecraft mc;
 
 	@Inject(method = "renderWorld", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/RenderGlobal;renderClouds(F)V", shift = At.Shift.AFTER))
 	private void rollingHills_renderSecondClouds(float partialTick, long updateRenderersUntil, CallbackInfo ci) {

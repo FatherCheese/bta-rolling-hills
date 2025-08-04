@@ -19,13 +19,13 @@
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"cookie.rollinghills.RollingHills"
+			"cookie.rollinghills.core.RollingHills"
 		],
-		"beforeGameStart": [
-			"cookie.rollinghills.RollingHills"
+		"client": [
+			"cookie.rollinghills.client.RollingHillsClient"
 		],
-		"afterGameStart": [
-			"cookie.rollinghills.RollingHills"
+		"initModels": [
+			"cookie.rollinghills.client.RollingHillsModels"
 		]
 	},
 	"mixins": [
@@ -33,8 +33,9 @@
 	],
 
 	"depends": {
-		"minecraft": "^7.2-beta",
-		"fabricloader": ">=0.15.5"
+		"minecraft": "*",
+		"fabricloader": ">=0.15.5",
+		"dragonfly": "*"
 	},
 	"suggests": {
 	}

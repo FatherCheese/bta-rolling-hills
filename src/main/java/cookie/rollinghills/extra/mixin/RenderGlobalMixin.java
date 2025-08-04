@@ -1,19 +1,24 @@
 package cookie.rollinghills.extra.mixin;
 
 import cookie.rollinghills.extra.TwoClouds;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiPhotoMode;
-import net.minecraft.client.render.RenderEngine;
+import net.minecraft.client.gui.ScreenPhotoMode;
 import net.minecraft.client.render.RenderGlobal;
+import net.minecraft.client.render.TextureManager;
+import net.minecraft.client.render.worldtype.WorldTypeFX;
+import net.minecraft.client.render.worldtype.WorldTypeFXDispatcher;
+import net.minecraft.client.world.WorldClient;
 import net.minecraft.core.util.helper.MathHelper;
-import net.minecraft.core.util.phys.Vec3d;
-import net.minecraft.core.world.Dimension;
-import net.minecraft.core.world.World;
+import net.minecraft.core.util.phys.Vec3;
 import org.lwjgl.opengl.GL11;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 
+@Environment(EnvType.CLIENT)
 @Mixin(value = RenderGlobal.class, remap = false)
 public abstract class RenderGlobalMixin implements TwoClouds {
 
@@ -21,11 +26,10 @@ public abstract class RenderGlobalMixin implements TwoClouds {
 	private Minecraft mc;
 
 	@Shadow
-	private RenderEngine renderEngine;
-
+	@Final
+	private TextureManager textureManager;
 	@Shadow
-	private World worldObj;
-
+	private WorldClient worldObj;
 	@Unique
 	private float lastCloudOffset2X;
 
@@ -46,81 +50,83 @@ public abstract class RenderGlobalMixin implements TwoClouds {
 
 	@Override
 	public void bta_rolling_hills$renderSecondClouds(float partialTick) {
-		if (mc.theWorld.dimension != Dimension.nether) {
-			if (!(mc.currentScreen instanceof GuiPhotoMode)) {
-				if (mc.gameSettings.fancyGraphics.value == 1) {
-					bta_rolling_hills$renderSecondCloudsFancy(partialTick);
-				} else {
-					GL11.glDisable(2884);
-					float cameraY = (float) mc.activeCamera.getY(partialTick);
-					byte cloudRadius = 32;
-					int i = 256 / cloudRadius;
-					net.minecraft.client.render.tessellator.Tessellator tessellator = net.minecraft.client.render.tessellator.Tessellator.instance;
-					GL11.glBindTexture(3553, renderEngine.getTexture("/assets/rollinghills/textures/environment/clouds2.png"));					GL11.glEnable(3042);
-					GL11.glBlendFunc(770, 771);
-					Vec3d dimensionColor = worldObj.getDimensionColor(mc.activeCamera, partialTick);
-					float r = (float)dimensionColor.xCoord;
-					float g = (float)dimensionColor.yCoord;
-					float b = (float)dimensionColor.zCoord;
-					float f6 = 4.8828125E-4F;
-					double posX = mc.activeCamera.getX(partialTick)
-						+ (double)((lastCloudOffset2X + (cloudOffset2X - lastCloudOffset2X) * partialTick) * 0.03F);
-					double posZ = mc.activeCamera.getZ(partialTick)
-						+ (double)((lastCloudOffset2Z + (cloudOffset2Z - lastCloudOffset2Z) * partialTick) * 0.03F);
-					int j = MathHelper.floor_double(posX / 2048.0);
-					int k = MathHelper.floor_double(posZ / 2048.0);
-					posX -= j * 2048;
-					posZ -= k * 2048;
-					float cloudHeight = worldObj.worldType.getCloudHeight() - cameraY + 0.33F + 4.0F;
-					float f10 = (float)(posX * (double)f6);
-					float f11 = (float)(posZ * (double)f6);
-					tessellator.startDrawingQuads();
-					tessellator.setColorRGBA_F(r, g, b, 0.6F);
+		WorldTypeFX worldTypeFX = WorldTypeFXDispatcher.getInstance().getDispatch(mc.currentWorld.getWorldType());
 
-					for(int cloudX = -cloudRadius * i; cloudX < cloudRadius * i; cloudX += cloudRadius) {
-						for(int cloudZ = -cloudRadius * i; cloudZ < cloudRadius * i; cloudZ += cloudRadius) {
-							tessellator.addVertexWithUV(
-								cloudX,
-								cloudHeight,
-								cloudZ + cloudRadius,
-								(float)(cloudX) * f6 + f10,
-								(float)(cloudZ + cloudRadius) * f6 + f11
-							);
-							tessellator.addVertexWithUV(
-								cloudX + cloudRadius,
-								cloudHeight,
-								cloudZ + cloudRadius,
-								(float)(cloudX + cloudRadius) * f6 + f10,
-								(float)(cloudZ + cloudRadius) * f6 + f11
-							);
-							tessellator.addVertexWithUV(
-								cloudX + cloudRadius,
-								cloudHeight,
-								cloudZ,
-								(float)(cloudX + cloudRadius) * f6 + f10,
-								(float)(cloudZ) * f6 + f11
-							);
-							tessellator.addVertexWithUV(
-								cloudX,
-								cloudHeight,
-								cloudZ,
-								(float)(cloudX) * f6 + f10,
-								(float)(cloudZ) * f6 + f11
-							);
-						}
+		if (worldTypeFX.hasClouds() && !(mc.currentScreen instanceof ScreenPhotoMode)) {
+			if (mc.gameSettings.fancyGraphics.value == 1) bta_rolling_hills$renderSecondCloudsFancy(partialTick);
+			else {
+				GL11.glDisable(2884);
+				float cameraY = (float) mc.activeCamera.getY(partialTick);
+				byte cloudRadius = 32;
+				int i = 256 / cloudRadius;
+				net.minecraft.client.render.tessellator.Tessellator tessellator = net.minecraft.client.render.tessellator.Tessellator.instance;
+				textureManager.bindTexture(textureManager.loadTexture("/assets/rollinghills/textures/environment/clouds2.png"));
+				GL11.glEnable(3042);
+				GL11.glBlendFunc(770, 771);
+				Vec3 dimensionColor = worldObj.getDimensionColor(mc.activeCamera, partialTick);
+				float r = (float) dimensionColor.x;
+				float g = (float) dimensionColor.y;
+				float b = (float) dimensionColor.z;
+				float f6 = 4.8828125E-4F;
+				double posX = mc.activeCamera.getX(partialTick)
+					+ (double) ((lastCloudOffset2X + (cloudOffset2X - lastCloudOffset2X) * partialTick) * 0.03F);
+				double posZ = mc.activeCamera.getZ(partialTick)
+					+ (double) ((lastCloudOffset2Z + (cloudOffset2Z - lastCloudOffset2Z) * partialTick) * 0.03F);
+				int j = MathHelper.floor(posX / 2048.0);
+				int k = MathHelper.floor(posZ / 2048.0);
+				posX -= j * 2048;
+				posZ -= k * 2048;
+				float cloudHeight = worldTypeFX.getCloudHeight() - cameraY + 0.33F + 4.0F;
+				float f10 = (float) (posX * (double) f6);
+				float f11 = (float) (posZ * (double) f6);
+				tessellator.startDrawingQuads();
+				tessellator.setColorRGBA_F(r, g, b, 0.6F);
+
+				for (int cloudX = -cloudRadius * i; cloudX < cloudRadius * i; cloudX += cloudRadius) {
+					for (int cloudZ = -cloudRadius * i; cloudZ < cloudRadius * i; cloudZ += cloudRadius) {
+						tessellator.addVertexWithUV(
+							cloudX,
+							cloudHeight,
+							cloudZ + cloudRadius,
+							(float) (cloudX) * f6 + f10,
+							(float) (cloudZ + cloudRadius) * f6 + f11
+						);
+						tessellator.addVertexWithUV(
+							cloudX + cloudRadius,
+							cloudHeight,
+							cloudZ + cloudRadius,
+							(float) (cloudX + cloudRadius) * f6 + f10,
+							(float) (cloudZ + cloudRadius) * f6 + f11
+						);
+						tessellator.addVertexWithUV(
+							cloudX + cloudRadius,
+							cloudHeight,
+							cloudZ,
+							(float) (cloudX + cloudRadius) * f6 + f10,
+							(float) (cloudZ) * f6 + f11
+						);
+						tessellator.addVertexWithUV(
+							cloudX,
+							cloudHeight,
+							cloudZ,
+							(float) (cloudX) * f6 + f10,
+							(float) (cloudZ) * f6 + f11
+						);
 					}
-
-					tessellator.draw();
-					GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-					GL11.glDisable(3042);
-					GL11.glEnable(2884);
 				}
+
+				tessellator.draw();
+				GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+				GL11.glDisable(3042);
+				GL11.glEnable(2884);
 			}
 		}
 	}
 
 	@Override
 	public void bta_rolling_hills$renderSecondCloudsFancy(float partialTick) {
+		WorldTypeFX worldTypeFX = WorldTypeFXDispatcher.getInstance().getDispatch(mc.currentWorld.getWorldType());
+
 		GL11.glDisable(2884);
 		float cameraY = (float) mc.activeCamera.getY(partialTick);
 		net.minecraft.client.render.tessellator.Tessellator tessellator = net.minecraft.client.render.tessellator.Tessellator.instance;
@@ -136,25 +142,25 @@ public abstract class RenderGlobalMixin implements TwoClouds {
 		)
 			/ (double)cloudWidth
 			+ 0.33;
-		float dy = worldObj.worldType.getCloudHeight() - cameraY + 0.33F + 4.0F;
-		int i = MathHelper.floor_double(dx / 2048.0);
-		int j = MathHelper.floor_double(dz / 2048.0);
+		float dy = worldTypeFX.getCloudHeight() - cameraY + 0.33F + 4.0F;
+		int i = MathHelper.floor(dx / 2048.0);
+		int j = MathHelper.floor(dz / 2048.0);
 		dx -= i * 2048;
 		dz -= j * 2048;
-		GL11.glBindTexture(3553, renderEngine.getTexture("/assets/rollinghills/textures/environment/clouds2.png"));
+		textureManager.bindTexture(textureManager.loadTexture("/assets/rollinghills/textures/environment/clouds2.png"));
 		GL11.glEnable(3042);
 		GL11.glBlendFunc(770, 771);
-		Vec3d color = worldObj.getDimensionColor(mc.activeCamera, partialTick);
-		float red = (float)color.xCoord;
-		float green = (float)color.yCoord;
-		float blue = (float)color.zCoord;
+		Vec3 color = worldObj.getDimensionColor(mc.activeCamera, partialTick);
+		float red = (float)color.x;
+		float green = (float)color.y;
+		float blue = (float)color.z;
 		float f9;
 		float f11;
 		float f13 = 0.00390625F;
-		f9 = (float)MathHelper.floor_double(dx) * f13;
-		f11 = (float)MathHelper.floor_double(dz) * f13;
-		float f14 = (float)(dx - (double)MathHelper.floor_double(dx));
-		float f15 = (float)(dz - (double)MathHelper.floor_double(dz));
+		f9 = (float)MathHelper.floor(dx) * f13;
+		f11 = (float)MathHelper.floor(dz) * f13;
+		float f14 = (float)(dx - (double)MathHelper.floor(dx));
+		float f15 = (float)(dz - (double)MathHelper.floor(dz));
 		int cloudWidthScale = 8;
 		byte radius = 3;
 		float f16 = 9.765625E-4F;

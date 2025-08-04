@@ -4,12 +4,12 @@
   "package": "cookie.rollinghills.extra.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "RenderGlobalMixin",
-    "TextureRegistryMixin",
-    "WorldRendererMixin"
   ],
   "client": [
-    "MinecraftMixin"
+    "BlockModelDispatcherMixin",
+    "MinecraftMixin",
+    "RenderGlobalMixin",
+    "WorldRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1
